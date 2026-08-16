@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>marFLIX — Ethiopian Stories, One Stream</title>
+<style>
+:root{--bg:#070707;--panel:#111;--gold:#d6b35a;--text:#f5f2eb;--muted:#a7a39a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+nav{position:fixed;top:0;width:100%;z-index:5;display:flex;align-items:center;gap:28px;padding:18px 5%;background:linear-gradient(#050505,transparent)}
+.logo{font-size:28px;font-weight:900;letter-spacing:-1px}.logo span{color:var(--gold)}
+nav a{color:#ddd;text-decoration:none;font-size:14px}nav a:hover{color:var(--gold)}
+.search{margin-left:auto;background:#151515;border:1px solid #292929;border-radius:20px;padding:9px 14px;color:white;width:190px}
+.hero{min-height:78vh;padding:150px 6% 70px;display:flex;align-items:center;background:radial-gradient(circle at 75% 35%,#4b3717 0,#18130b 22%,transparent 48%),linear-gradient(90deg,#070707 25%,rgba(7,7,7,.72),rgba(7,7,7,.2)),url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1800&q=80") center/cover}
+.hero-content{max-width:620px}.eyebrow{color:var(--gold);letter-spacing:4px;font-size:12px;font-weight:700}.hero h1{font-size:clamp(48px,7vw,86px);line-height:.9;margin:16px 0}.hero p{color:#d1cec7;font-size:17px;line-height:1.6;max-width:520px}.buttons{display:flex;gap:12px;margin-top:25px}.btn{border:0;border-radius:6px;padding:13px 22px;font-weight:800;cursor:pointer}.primary{background:var(--gold);color:#080808}.secondary{background:#242424;color:white}
+section{padding:15px 5% 35px}.heading{display:flex;justify-content:space-between;align-items:center}.heading h2{font-size:24px}.heading button{background:none;border:0;color:var(--gold);cursor:pointer}
+.row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}.card{background:var(--panel);border-radius:9px;overflow:hidden;cursor:pointer;transition:.25s}.card:hover{transform:translateY(-6px);box-shadow:0 12px 35px #000}.poster{aspect-ratio:2/3;background-size:cover;background-position:center}.info{padding:12px}.title{font-weight:800}.meta{font-size:12px;color:var(--muted);margin-top:5px}
+footer{padding:55px 5%;border-top:1px solid #202020;color:var(--muted);margin-top:30px}.gold{color:var(--gold)}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:20;place-items:center;padding:20px}.modal.open{display:grid}.modalbox{background:#151515;max-width:600px;width:100%;padding:28px;border:1px solid #333;border-radius:12px}.close{float:right;background:none;border:0;color:white;font-size:24px;cursor:pointer}
+@media(max-width:800px){nav a{display:none}.search{width:140px}.hero{min-height:70vh;padding-top:130px}.row{grid-template-columns:repeat(2,1fr)}section{padding-left:4%;padding-right:4%}}
+</style>
+</head>
+<body>
+<nav><div class="logo">mar<span>FLIX</span></div><a href="#home">Home</a><a href="#browse">Browse</a><a href="#new">New</a><a href="#genres">Genres</a><input id="search" class="search" placeholder="Search movies…"></nav>
+
+<header id="home" class="hero">
+<div class="hero-content"><div class="eyebrow">MARFLIX ORIGINAL COLLECTION</div><h1>ETHIOPIAN<br><span class="gold">STORIES.</span></h1><p>Discover unforgettable Ethiopian cinema in one elegant home. Browse dramas, comedies, romances and classics made for audiences in Ethiopia and around the world.</p><div class="buttons"><button class="btn primary" onclick="openModal('Featured Film')">▶ Watch now</button><button class="btn secondary" onclick="document.querySelector('#browse').scrollIntoView({behavior:'smooth'})">Browse movies</button></div></div>
+</header>
+
+<main id="browse">
+<section><div class="heading"><h2>Trending in Ethiopia</h2><button>See all →</button></div><div class="row" id="trending"></div></section>
+<section id="new"><div class="heading"><h2>New Releases</h2><button>See all →</button></div><div class="row" id="newrow"></div></section>
+<section id="genres"><div class="heading"><h2>Explore Genres</h2></div><div class="row" id="genresrow"></div></section>
+</main>
+
+<footer><div class="logo">mar<span>FLIX</span></div><p>Every Ethiopian Story, One Stream.</p><small>© 2026 marFLIX. Streaming content must be properly licensed.</small></footer>
+
+<div id="modal" class="modal" onclick="if(event.target===this)closeModal()"><div class="modalbox"><button class="close" onclick="closeModal()">×</button><h2 id="modalTitle"></h2><p>Movie playback will connect here once licensed video content and the streaming backend are added.</p><button class="btn primary" onclick="closeModal()">Got it</button></div></div>
+
+<script>
+const films=[
+["Selam","Drama","https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80"],
+["Addis Nights","Romance","https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80"],
+["The Journey","Drama","https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80"],
+["Betoch Stories","Comedy","https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=600&q=80"],
+["Beyond the Blue Nile","Classic","https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=600&q=80"]
+];
+const more=[
+["New Dawn","Drama"],["Love in Addis","Romance"],["Laugh Addis","Comedy"],["Golden Age","Classic"],["Night Drive","Action"]
+];
+function card(f){return `<article class="card" onclick="openModal('${f[0]}')"><div class="poster" style="background-image:url('${f[2]||'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80'}')"></div><div class="info"><div class="title">${f[0]}</div><div class="meta">${f[1]} • HD</div></div></article>`}
+document.getElementById('trending').innerHTML=films.map(card).join('');
+document.getElementById('newrow').innerHTML=more.map((x,i)=>card([x[0],x[1],films[i%films.length][2]])).join('');
+document.getElementById('genresrow').innerHTML=['Drama','Romance','Comedy','Action','Classics'].map((x,i)=>card([x,'Explore',films[i][2]])).join('');
+function openModal(t){document.getElementById('modalTitle').textContent=t;document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('search').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('.card').forEach(c=>c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none')});
+</script>
+</body>
+</html>
